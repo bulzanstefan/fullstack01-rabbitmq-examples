@@ -3,6 +3,7 @@ package ro.fasttrackit.curs12.exchange.publisher.config;
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.core.DirectExchange;
 import org.springframework.amqp.core.FanoutExchange;
+import org.springframework.amqp.core.TopicExchange;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
@@ -13,6 +14,11 @@ import org.springframework.context.annotation.Configuration;
 @RequiredArgsConstructor
 public class RabbitmqConfig {
     private final ConnectionFactory connectionFactory;
+
+    @Bean
+    TopicExchange topicExchange() {
+        return new TopicExchange("fasttrack.topic");
+    }
 
     @Bean
     DirectExchange directExchange() {

@@ -51,8 +51,31 @@ public class RabbitSubscribeConfig {
     }
 
     @Bean
+    TopicExchange topicExchange() {
+        return new TopicExchange("fasttrack.topic");
+    }
+
+    @Bean
+    Queue topicQueue() {
+        return new AnonymousQueue();
+    }
+
+    @Bean
+    Binding topicBinding(Queue topicQueue, TopicExchange topicExchange) {
+        return BindingBuilder.bind(topicQueue).to(topicExchange)
+                .with("invoice.*.oradea");
+    }
+
+    @Bean
+    Binding topicBindingCluj(Queue topicQueue, TopicExchange topicExchange) {
+        return BindingBuilder.bind(topicQueue).to(topicExchange)
+                .with("invoice.*.cluj");
+    }
+
+    @Bean
     public MessageConverter jsonMessageConverter() {
         return new Jackson2JsonMessageConverter();
     }
+
 
 }

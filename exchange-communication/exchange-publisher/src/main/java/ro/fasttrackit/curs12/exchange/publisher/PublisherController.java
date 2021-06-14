@@ -21,4 +21,9 @@ public class PublisherController {
     void fanoutExchange(@PathVariable String topic) {
         service.publishToFanout(topic);
     }
+
+    @PostMapping("topic/{topic}")
+    void topicExchange(@PathVariable String topic) {
+        service.publishToTopic(topic);
+    }
 }
